@@ -54,6 +54,25 @@ async function run() {
         res.send(result)
     })
 
+
+    // update put
+
+    app.put("/users/:id", async (req,res)=>{
+        const id=req.params.id;
+        const filter={_id: new ObjectId(id)};
+        const user=req.body;
+        const updateDoc={
+            $set:{
+                name:user.name,
+                email:user.email
+            }
+        }
+        const options = { upsert: true };
+        const result=await collectiondb.updateOne(filter,updateDoc,options);
+        res.send(result)
+        // console.log(user)
+    })
+
     // DELETE
 
     app.delete("/users/:id", async(req,res)=>{
