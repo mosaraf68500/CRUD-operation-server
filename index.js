@@ -37,6 +37,16 @@ async function run() {
 
     })
 
+
+    // find onee
+
+    app.get("/users/:id", async(req,res)=>{
+        const id=req.params.id;
+        const query={_id:new ObjectId(id)};
+        const result=await collectiondb.findOne(query);
+        res.send(result)
+    })
+
     // post
     app.post("/users", async(req,res)=>{
         const newUser=req.body;
